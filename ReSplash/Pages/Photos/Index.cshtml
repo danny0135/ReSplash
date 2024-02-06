@@ -1,0 +1,79 @@
+﻿@page
+@model ReSplash.Pages.Photos.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>My Photos</h1>
+
+<p>
+    <a asp-page="Create" class="btn btn-outline-dark">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Photos[0].FileName)
+            </th>
+            <th>
+                Tags
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Photos[0].PublishDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Photos[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Photos[0].ImageViews)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Photos[0].ImageDownloads)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Photos[0].Location)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Photos)
+        {
+
+            string imagePath = "/photos/" + item.FileName;
+
+            <tr>
+                <td>
+                    <img src="@imagePath" class="img-fluid thumbnail">
+                </td>
+                <td>
+                    @foreach (var photoTag in item.PhotoTags)
+                    {
+                        <span class="badge rounded-pill bg-secondary no-bold">@photoTag.Tag.TagName</span>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublishDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImageViews)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ImageDownloads)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.PhotoId">Edit</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.PhotoId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

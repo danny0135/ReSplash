@@ -1,0 +1,66 @@
+﻿@page
+@model ReSplash.Pages.Photos.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+
+    string imagePath = "/photos/" + Model.Photo.FileName;
+
+}
+
+<h1>Edit Photo</h1>
+
+<br />
+
+<div class="row">
+    <div class="col-md-6">
+        <img src="@imagePath" class="img-fluid" />
+    </div>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Photo.PhotoId" />
+            <input type="hidden" asp-for="Photo.FileName" />
+            <input type="hidden" asp-for="Photo.PublishDate" />
+            <input type="hidden" asp-for="Photo.ImageViews" />
+            <input type="hidden" asp-for="Photo.ImageDownloads" />
+
+            <div class="mb-3">
+                <label asp-for="Photo.Description" class="control-label"></label>
+                <input asp-for="Photo.Description" class="form-control" />
+                <span asp-validation-for="Photo.Description" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Photo.Location" class="control-label"></label>
+                <input asp-for="Photo.Location" class="form-control" />
+                <span asp-validation-for="Photo.Location" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Photo.Category.CategoryId" class="control-label"></label>
+                <select asp-for="Photo.Category.CategoryId" asp-items="Model.CategoryList" class="form-control">
+                    <option value="">--- Select ---</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="Tags">Tags (comma-separated)</label>
+                <input asp-for="strTags" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Save" class="btn btn-primary" /> &nbsp;&nbsp;
+                <a asp-page="./Index" class="btn btn-outline-dark">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

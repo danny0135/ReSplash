@@ -1,0 +1,57 @@
+﻿@page
+@model ReSplash.Pages.Photos.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+
+}
+
+<h1>Add Photo</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label for="ImageUpload">Photo</label>
+                <input type="file" asp-for="ImageUpload" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Photo.Description" class="control-label"></label>
+                <input asp-for="Photo.Description" class="form-control" />
+                <span asp-validation-for="Photo.Description" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Photo.Location" class="control-label"></label>
+                <input asp-for="Photo.Location" class="form-control" />
+                <span asp-validation-for="Photo.Location" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Photo.Category.CategoryId" class="control-label"></label>
+                <select asp-for="Photo.Category.CategoryId" asp-items="Model.CategoryList" class="form-control">
+                    <option value="">--- Select ---</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="Tags">Tags (comma-separated)</label>
+                <input asp-for="strTags" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" /> &nbsp;&nbsp;
+                <a asp-page="Index" class="btn btn-outline-dark">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
